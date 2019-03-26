@@ -1,6 +1,7 @@
 package modules;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -8,7 +9,7 @@ public class PlataAbonament implements Plata {
     private ArrayList<PlataSingulara> pretFiecareZi;
 
     @Override
-    public double getMoney() {
+    public InstantaPlata getMoney() {
         int nr_zile;
         Scanner scanner=new Scanner(System.in);
         do{
@@ -18,11 +19,13 @@ public class PlataAbonament implements Plata {
         }while (nr_zile<0 || nr_zile>pretFiecareZi.size());
         if(nr_zile==pretFiecareZi.size()){
             double suma=0;
+            ArrayList<Date> zile=new ArrayList<>();
             for(Plata plata:pretFiecareZi){
-                suma+=plata.getMoney();
+                suma+=plata.getMoney().getPret();
+                zile.add(plata.getMoney().getZile().get(0));
             }
             suma=suma*0.8;
-            return suma;
+            return new InstantaPlata("Abonament complet",suma,zile);
         }
         else {
             double suma=0;
@@ -32,6 +35,7 @@ public class PlataAbonament implements Plata {
                 Integer nr_prezent=scanner.nextInt();
                 if(!zile.contains(nr_prezent)){
                     zile.add(nr_prezent);
+
                     nr_alese++;
                 }
                 else{
@@ -41,11 +45,15 @@ public class PlataAbonament implements Plata {
 
 
             }while(nr_alese!=nr_zile);
-
+            ArrayList<Date> zile_act=new ArrayList<>();
+            StringBuilder detalii=new StringBuilder();
+            detalii.append("Abonament cumparat pentru zilele: ");
             for(int i:zile){
-                suma+=pretFiecareZi.get(i).getMoney();
+                suma+=pretFiecareZi.get(i).getMoney().getPret();
+                detalii.append(i).append(" ");
+                zile_act.add(pretFiecareZi.get(i).getMoney().getZile().get(0));
             }
-            return suma;
+            return new InstantaPlata(detalii.toString(),suma,zile_act);
 
         }
 

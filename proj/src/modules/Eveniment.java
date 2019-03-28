@@ -19,6 +19,6 @@ abstract public class Eveniment {
         if(nr_scanere_necesare>firmaScanare.getNumar_scanere())throw new AdaugareImposibila();
     }
 
-    abstract InstantaPlata adauga_bilet() throws AdaugareImposibila;
+    abstract public InstantaPlata adauga_bilet() throws AdaugareImposibila;
 
 }

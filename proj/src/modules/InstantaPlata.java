@@ -26,4 +26,10 @@ public class InstantaPlata {
     public ArrayList<Date> getZile() {
         return zile;
     }
+
+    @Override
+    public String toString(){
+        return detalii+ " avand pretul de "+pret+" lei";
+
+    }
 }

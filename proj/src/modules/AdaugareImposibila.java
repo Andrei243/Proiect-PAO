@@ -1,5 +1,5 @@
 package modules;
 
-public class AdaugareImposibila extends Throwable {
+public class AdaugareImposibila extends Exception {
 
 }

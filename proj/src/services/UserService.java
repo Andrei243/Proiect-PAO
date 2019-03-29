@@ -13,7 +13,7 @@ public class UserService {
     private Date creaza_data(int an,int luna,int zi)throws AdaugareImposibila{
         Calendar calendar=Calendar.getInstance();
         calendar.set(Calendar.YEAR,an);
-        if(luna > 12)throw new AdaugareImposibila();
+        if(luna > 12)throw new AdaugareImposibila("Ultima luna a anului este a 12-a");
         calendar.set(Calendar.MONTH,luna-1);
         calendar.set(Calendar.DAY_OF_MONTH,zi);
         return calendar.getTime();
@@ -21,12 +21,15 @@ public class UserService {
 
     private Date citeste_data()throws AdaugareImposibila{
         int zi,luna,an;
+
         System.out.print("ZI:");
         zi=scanner.nextInt();
         System.out.print("Luna");
         luna=scanner.nextInt();
         System.out.print("An:");
         an=scanner.nextInt();
+
+
         return creaza_data(an,luna,zi);
     }
 
@@ -57,7 +60,7 @@ public class UserService {
             afiseaza_locatii();
             int nr_ales=scanner.nextInt();
             if(nr_ales>0&&nr_ales<=locatii.size()){
-                return locatii.get(nr_ales);
+                return locatii.get(nr_ales-1);
             }
         }while (true);
 
@@ -87,7 +90,7 @@ public class UserService {
             afiseaza_clienti();
             int nr_ales=scanner.nextInt();
             if(nr_ales>0&&nr_ales<=clienti.size()){
-                return clienti.get(nr_ales);
+                return clienti.get(nr_ales-1);
             }
         }while (true);
 
@@ -117,7 +120,7 @@ public class UserService {
             afiseaza_firme_productie();
             int nr_ales=scanner.nextInt();
             if(nr_ales>0&&nr_ales<=firmeProductie.size()){
-                return firmeProductie.get(nr_ales);
+                return firmeProductie.get(nr_ales-1);
             }
         }while (true);
 
@@ -130,7 +133,7 @@ public class UserService {
         System.out.println("Care e numele firmei de scanare?");
         String nume=scanner.nextLine();
         System.out.println("Cate scannere poate sustine simultan?");
-        int nr_scannere=scanner.nextInt();
+        int nr_scannere=Integer.parseInt( scanner.nextLine());
         return new FirmaScanare(nume,nr_scannere);
     }
 
@@ -151,7 +154,7 @@ public class UserService {
             afiseaza_firme_scanare();
             int nr_ales=scanner.nextInt();
             if(nr_ales>0&&nr_ales<=firmeScanare.size()){
-                return firmeScanare.get(nr_ales);
+                return firmeScanare.get(nr_ales-1);
             }
         }while (true);
 
@@ -160,13 +163,16 @@ public class UserService {
     private ArrayList<Eveniment> evenimente=new ArrayList<>();
 
     private Eveniment citeste_eveniment() throws AdaugareImposibila{
+        String nume;
+        System.out.println("Care e numele evenimentului?");
+        nume=scanner.nextLine();
         System.out.println("Alege tipul de eveniment:");
         int nr_ales=0;
         do{
             System.out.println("1.De o singura zi\n2.De mai multe zile\n3.Renunta");
             nr_ales=scanner.nextInt();
             if(nr_ales==1||nr_ales==2)break;
-            if(nr_ales==3)throw new AdaugareImposibila();
+            if(nr_ales==3)throw new AdaugareImposibila("");
             System.out.println("Ai ales gresit");
         }while(true);
 
@@ -178,15 +184,25 @@ public class UserService {
         System.out.println("Care e numarul necesar de scannere?");
         nr_necesar_scannere=scanner.nextInt();
         System.out.println("Pe ce data incepe?");
-        Date data=citeste_data();
+        Date data;
+        do {
+           try {
+               data = citeste_data();
+               break;
+           }
+           catch(AdaugareImposibila adaugareImposibila){
+               System.out.println(adaugareImposibila.getMessage());
+           }
+
+        }while(true);
         Eveniment eveniment;
 
         if(nr_ales==1){
             //De o zi
             System.out.println("Cat costa?");
-            double pret_zi=scanner.nextInt();
+            double pret_zi=scanner.nextDouble();
             PlataSingulara plataSingulara=new PlataSingulara(pret_zi,data);
-            eveniment=new EvenimentDeOZi(nr_maxim_persoane,nr_necesar_scannere,plataSingulara,firmaScanare,firmaProductie,data);
+            eveniment=new EvenimentDeOZi(nume,nr_maxim_persoane,nr_necesar_scannere,plataSingulara,firmaScanare,firmaProductie,data);
 
         }
         else{
@@ -194,9 +210,9 @@ public class UserService {
             System.out.println("Cate zile tine?");
             int nr_zile=scanner.nextInt();
             System.out.println("Cat costa intr-o zi?");
-            double pret_zi=scanner.nextInt();
+            double pret_zi=scanner.nextDouble();
             PlataAbonament plataAbonament=new PlataAbonament(data,nr_zile,pret_zi);
-            eveniment=new EvenimentDeMaiMulteZile(nr_maxim_persoane,nr_necesar_scannere,plataAbonament,firmaScanare,firmaProductie,data,nr_zile);
+            eveniment=new EvenimentDeMaiMulteZile(nume,nr_maxim_persoane,nr_necesar_scannere,plataAbonament,firmaScanare,firmaProductie,data,nr_zile);
 
 
 
@@ -208,6 +224,7 @@ public class UserService {
     public void adauga_eveniment()throws AdaugareImposibila{
         Eveniment eveniment=citeste_eveniment();
         evenimente.add(eveniment);
+        Collections.sort(evenimente);
 
     }
 
@@ -224,7 +241,7 @@ public class UserService {
             afiseaza_evenimente();
             int nr_ales=scanner.nextInt();
             if(nr_ales>0&&nr_ales<=evenimente.size()){
-                return evenimente.get(nr_ales);
+                return evenimente.get(nr_ales-1);
             }
         }while (true);
 

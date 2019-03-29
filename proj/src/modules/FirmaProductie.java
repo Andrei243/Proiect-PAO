@@ -2,7 +2,7 @@ package modules;
 
 public class FirmaProductie extends Firma {
 
-    FirmaProductie(String _nume){
+    public FirmaProductie(String _nume){
         super(_nume);
     }
 

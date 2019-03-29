@@ -1,6 +1,7 @@
 package modules;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class InstantaPlata {
@@ -13,6 +14,7 @@ public class InstantaPlata {
         this.detalii = detalii;
         this.pret = pret;
         this.zile = zile;
+        Collections.sort(this.zile);
     }
 
     public String getDetalii() {

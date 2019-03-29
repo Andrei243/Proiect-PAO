@@ -74,9 +74,69 @@ public class UserService {
     }
 
     private ArrayList<FirmaProductie> firmeProductie=new ArrayList<>();
+    private FirmaProductie citeste_firma_productie(){
+        System.out.println("Care e numele firmei de productie?");
+        String nume=scanner.nextLine();
+        return new FirmaProductie(nume);
+    }
+
+    public void adauga_firma_productie(){
+        FirmaProductie firmaProductie=citeste_firma_productie();
+        firmeProductie.add(firmaProductie);
+    }
+
+    public void afiseaza_firme_productie(){
+        for(int i=0;i<firmeProductie.size();i++){
+            System.out.println((i+1)+"."+firmeProductie.get(i).toString());
+        }
+    }
+
+    private FirmaProductie ret_firma_productie(){
+        do{
+            System.out.println("Alege firma de productie indicand numarul");
+            afiseaza_firme_productie();
+            int nr_ales=scanner.nextInt();
+            if(nr_ales>0&&nr_ales<=firmeProductie.size()){
+                return firmeProductie.get(nr_ales);
+            }
+        }while (true);
+
+    }
 
 
     private ArrayList<FirmaScanare> firmeScanare=new ArrayList<>();
+
+    private FirmaScanare citeste_firma_scanare(){
+        System.out.println("Care e numele firmei de scanare?");
+        String nume=scanner.nextLine();
+        System.out.println("Cate scannere poate sustine simultan?");
+        int nr_scannere=scanner.nextInt();
+        return new FirmaScanare(nume,nr_scannere);
+    }
+
+    public void adauga_firma_scanare(){
+        FirmaScanare firmaScanare=citeste_firma_scanare();
+        firmeScanare.add(firmaScanare);
+    }
+
+    public void afiseaza_firme_scanare(){
+        for(int i=0;i<firmeScanare.size();i++){
+            System.out.println((i+1)+"."+firmeScanare.get(i).toString());
+        }
+    }
+
+    private FirmaScanare ret_firma_scanare(){
+        do{
+            System.out.println("Alege firma de scanare indicand numarul");
+            afiseaza_firme_scanare();
+            int nr_ales=scanner.nextInt();
+            if(nr_ales>0&&nr_ales<=firmeScanare.size()){
+                return firmeScanare.get(nr_ales);
+            }
+        }while (true);
+
+    }
+
     private ArrayList<Eveniment> evenimente=new ArrayList<>();
     private Set<Comanda> comenzi=new TreeSet<>();
 

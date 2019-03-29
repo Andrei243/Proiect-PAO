@@ -1,12 +1,11 @@
 package modules;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 public class PlataAbonament implements Plata {
     private ArrayList<PlataSingulara> pretFiecareZi;
+
+
 
     @Override
     public InstantaPlata getMoney() {
@@ -59,7 +58,17 @@ public class PlataAbonament implements Plata {
 
     }
 
-    PlataAbonament(ArrayList<PlataSingulara> _pret){
-        pretFiecareZi=_pret;
+    public PlataAbonament(Date data_inceput,int nr_zile,double pret_zi){
+        pretFiecareZi=new ArrayList<>();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(data_inceput);
+        Date aux=calendar.getTime();
+        for(int i=0;i<nr_zile;i++){
+            pretFiecareZi.add(new PlataSingulara(pret_zi,aux));
+            calendar.add(Calendar.DAY_OF_MONTH,1);
+
+        }
+
+
     }
 }

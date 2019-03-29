@@ -26,6 +26,7 @@ public class Comanda implements Comparable<Comanda> {
     public Comanda(Client _client,Eveniment event)throws AdaugareImposibila {
         client=_client;
         eveniment=event;
+
         instantaPlata=event.adauga_bilet();
         nrComenzi++;
         nr_comanda=nrComenzi;

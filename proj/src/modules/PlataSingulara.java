@@ -16,7 +16,7 @@ public class PlataSingulara implements Plata {
 
 
 
-    PlataSingulara(double _pret,Date _zi){
+    public PlataSingulara(double _pret,Date _zi){
         pret=_pret;
         zi=(Date)_zi.clone();
     }

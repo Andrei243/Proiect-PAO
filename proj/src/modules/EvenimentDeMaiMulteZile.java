@@ -3,11 +3,11 @@ package modules;
 import java.util.Date;
 
 public class EvenimentDeMaiMulteZile extends Eveniment {
-    private Date data_inceput;
+
     private int nr_zile;
 
-    public EvenimentDeMaiMulteZile(int nr_maxim, int nr_scanere_necesare, int nr_instante, Plata tip_plata, FirmaScanare _firmaScanare, FirmaProductie _firmaProductie, Date data_inceput, int nr_zile) throws AdaugareImposibila {
-        super(nr_maxim, nr_scanere_necesare, nr_instante, tip_plata, _firmaScanare, _firmaProductie);
+    public EvenimentDeMaiMulteZile(int nr_maxim, int nr_scanere_necesare,  PlataAbonament tip_plata, FirmaScanare _firmaScanare, FirmaProductie _firmaProductie, Date data_inceput, int nr_zile) throws AdaugareImposibila {
+        super(nr_maxim, nr_scanere_necesare,  tip_plata, _firmaScanare, _firmaProductie,data_inceput);
         this.data_inceput = data_inceput;
         this.nr_zile = nr_zile;
     }

@@ -23,11 +23,11 @@ public class UserService {
         int zi,luna,an;
 
         System.out.print("ZI:");
-        zi=scanner.nextInt();
+        zi=Integer.parseInt( scanner.nextLine());
         System.out.print("Luna");
-        luna=scanner.nextInt();
+        luna=Integer.parseInt( scanner.nextLine());
         System.out.print("An:");
-        an=scanner.nextInt();
+        an=Integer.parseInt( scanner.nextLine());
 
 
         return creaza_data(an,luna,zi);
@@ -170,7 +170,7 @@ public class UserService {
         int nr_ales=0;
         do{
             System.out.println("1.De o singura zi\n2.De mai multe zile\n3.Renunta");
-            nr_ales=scanner.nextInt();
+            nr_ales=Integer.parseInt( scanner.nextLine());
             if(nr_ales==1||nr_ales==2)break;
             if(nr_ales==3)throw new AdaugareImposibila("");
             System.out.println("Ai ales gresit");
@@ -180,9 +180,9 @@ public class UserService {
         FirmaProductie firmaProductie=ret_firma_productie();
         FirmaScanare firmaScanare=ret_firma_scanare();
         System.out.println("Care e numarul maxim de participanti?");
-        nr_maxim_persoane=scanner.nextInt();
+        nr_maxim_persoane=Integer.parseInt( scanner.nextLine());
         System.out.println("Care e numarul necesar de scannere?");
-        nr_necesar_scannere=scanner.nextInt();
+        nr_necesar_scannere=Integer.parseInt( scanner.nextLine());
         System.out.println("Pe ce data incepe?");
         Date data;
         do {
@@ -200,7 +200,7 @@ public class UserService {
         if(nr_ales==1){
             //De o zi
             System.out.println("Cat costa?");
-            double pret_zi=scanner.nextDouble();
+            double pret_zi=Double.parseDouble( scanner.nextLine());
             PlataSingulara plataSingulara=new PlataSingulara(pret_zi,data);
             eveniment=new EvenimentDeOZi(nume,nr_maxim_persoane,nr_necesar_scannere,plataSingulara,firmaScanare,firmaProductie,data);
 
@@ -208,9 +208,9 @@ public class UserService {
         else{
             //De mai multe zile
             System.out.println("Cate zile tine?");
-            int nr_zile=scanner.nextInt();
+            int nr_zile=Integer.parseInt( scanner.nextLine());
             System.out.println("Cat costa intr-o zi?");
-            double pret_zi=scanner.nextDouble();
+            double pret_zi=Double.parseDouble( scanner.nextLine());
             PlataAbonament plataAbonament=new PlataAbonament(data,nr_zile,pret_zi);
             eveniment=new EvenimentDeMaiMulteZile(nume,nr_maxim_persoane,nr_necesar_scannere,plataAbonament,firmaScanare,firmaProductie,data,nr_zile);
 

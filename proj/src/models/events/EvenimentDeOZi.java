@@ -1,4 +1,9 @@
-package modules;
+package models.events;
+
+import models.AdaugareImposibila;
+import models.companies.FirmaProductie;
+import models.companies.FirmaScanare;
+import models.payments.PlataSingulara;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,7 +12,7 @@ import java.util.Date;
 public class EvenimentDeOZi extends Eveniment {
 
 
-    public EvenimentDeOZi(String _nume,int nr_maxim, int nr_scanere_necesare, PlataSingulara tip_plata, FirmaScanare _firmaScanare,FirmaProductie _firmaProductie,Date dataEveniment)throws  AdaugareImposibila {
+    public EvenimentDeOZi(String _nume, int nr_maxim, int nr_scanere_necesare, PlataSingulara tip_plata, FirmaScanare _firmaScanare, FirmaProductie _firmaProductie, Date dataEveniment)throws AdaugareImposibila {
         super(_nume,nr_maxim, nr_scanere_necesare, tip_plata,_firmaScanare,_firmaProductie,dataEveniment);
         if(nr_maxim>1000*nr_scanere_necesare)throw new AdaugareImposibila("Nu sunt destule scannere");
     }

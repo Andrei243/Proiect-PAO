@@ -1,4 +1,4 @@
-package modules;
+package models;
 
 public class Locatie implements Comparable<Locatie>{
     String tara;

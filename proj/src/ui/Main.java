@@ -1,10 +1,12 @@
 package ui;
 
-import modules.AdaugareImposibila;
+import models.AdaugareImposibila;
 import services.UserService;
 
-import java.util.InputMismatchException;
+
+
 import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args){

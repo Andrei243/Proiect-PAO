@@ -1,4 +1,4 @@
-package modules;
+package models.payments;
 
 import java.util.ArrayList;
 import java.util.Collections;

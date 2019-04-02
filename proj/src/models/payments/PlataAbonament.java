@@ -1,4 +1,4 @@
-package modules;
+package models.payments;
 
 import java.util.*;
 

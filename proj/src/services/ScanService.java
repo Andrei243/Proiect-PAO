@@ -1,6 +1,6 @@
 package services;
 
-import modules.FirmaScanare;
+import models.companies.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,6 +20,7 @@ public class ScanService {
     public void adauga_firma_scanare(){
         FirmaScanare firmaScanare=citeste_firma_scanare();
         firmeScanare.add(firmaScanare);
+        Logger.getInstance().add("S-a adaugat firma de scanare "+firmaScanare.toString()+"\n");
     }
 
     public void afiseaza_firme_scanare(){

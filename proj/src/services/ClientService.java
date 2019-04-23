@@ -1,6 +1,6 @@
 package services;
 
-import modules.Client;
+import models.Client;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,6 +16,8 @@ public class ClientService {
 
     public void adauga_client(){
         Client client=citeste_client();
+        Logger.getInstance().add("S-a adaugat clientul "+client.getNume()+"\n");
+
         clienti.add(client);
     }
 

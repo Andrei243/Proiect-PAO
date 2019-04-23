@@ -1,8 +1,9 @@
 package services;
 
-import modules.AdaugareImposibila;
-import modules.Client;
-import modules.Eveniment;
+import models.AdaugareImposibila;
+import models.Client;
+import models.events.Eveniment;
+import models.Comanda;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -23,6 +24,7 @@ public class ComandService {
 
     public void adauga_comanda(ClientService clientService,EventService eventService)throws AdaugareImposibila{
         Comanda comanda=citeste_comanda(clientService,eventService);
+        Logger.getInstance().add("S-a adaugat evenimentul "+comanda.toString()+"\n");
         comenzi.add(comanda);
     }
     public void afiseaza_comanda(){

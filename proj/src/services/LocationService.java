@@ -1,6 +1,6 @@
 package services;
 
-import modules.*;
+import models.*;
 
 import java.util.*;
 
@@ -45,6 +45,7 @@ public class LocationService {
         Locatie aux=citeste_locatie();
         locatii.add(aux);
         Collections.sort(locatii);
+        Logger.getInstance().add("S-a adaugat locatia "+aux.toString()+"\n");
     }
 
     public void afiseaza_locatii(){

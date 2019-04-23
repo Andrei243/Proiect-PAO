@@ -1,7 +1,9 @@
 package services;
 
-import modules.*;
-
+import models.events.*;
+import models.companies.*;
+import models.AdaugareImposibila;
+import models.payments.*;
 import java.util.*;
 
 public class EventService {
@@ -93,6 +95,7 @@ public class EventService {
         Eveniment eveniment=citeste_eveniment(productionService,scanService);
         evenimente.add(eveniment);
         Collections.sort(evenimente);
+        Logger.getInstance().add("S-a adaugat evenimentul "+eveniment.toString());
 
     }
 

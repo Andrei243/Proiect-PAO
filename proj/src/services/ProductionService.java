@@ -1,6 +1,6 @@
 package services;
 
-import modules.FirmaProductie;
+import models.companies.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,6 +17,7 @@ public class ProductionService {
     public void adauga_firma_productie(){
         FirmaProductie firmaProductie=citeste_firma_productie();
         firmeProductie.add(firmaProductie);
+        Logger.getInstance().add("S-a adaugat firma de productie "+firmaProductie.toString()+"\n");
     }
 
     public void afiseaza_firme_productie(){

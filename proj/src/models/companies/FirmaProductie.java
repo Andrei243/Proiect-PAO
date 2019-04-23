@@ -1,4 +1,6 @@
-package modules;
+package models.companies;
+
+import models.companies.Firma;
 
 public class FirmaProductie extends Firma {
 

@@ -1,4 +1,10 @@
-package modules;
+package models.events;
+
+import models.*;
+import models.companies.FirmaProductie;
+import models.companies.FirmaScanare;
+import models.payments.InstantaPlata;
+import models.payments.Plata;
 
 import java.util.Date;
 
@@ -13,7 +19,7 @@ abstract public class Eveniment implements Comparable<Eveniment>{
 
     protected Plata tip_plata;
 
-    public Eveniment(String _nume,int nr_maxim, int nr_scanere_necesare, Plata tip_plata,FirmaScanare _firmaScanare,FirmaProductie _firmaProductie,Date _dataInceput)throws  AdaugareImposibila {
+    public Eveniment(String _nume,int nr_maxim, int nr_scanere_necesare, Plata tip_plata,FirmaScanare _firmaScanare,FirmaProductie _firmaProductie,Date _dataInceput)throws AdaugareImposibila {
         nume=_nume;
         this.nr_maxim = nr_maxim;
         this.nr_scanere_necesare = nr_scanere_necesare;

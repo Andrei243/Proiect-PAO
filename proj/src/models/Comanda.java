@@ -1,9 +1,7 @@
-package services;
+package models;
 
-import modules.AdaugareImposibila;
-import modules.Client;
-import modules.Eveniment;
-import modules.InstantaPlata;
+import models.events.Eveniment;
+import models.payments.InstantaPlata;
 
 public class Comanda implements Comparable<Comanda> {
     static int nrComenzi=0;

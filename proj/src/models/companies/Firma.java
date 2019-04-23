@@ -1,4 +1,4 @@
-package modules;
+package models.companies;
 
 abstract public class Firma {
     protected String nume;

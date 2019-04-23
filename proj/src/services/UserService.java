@@ -1,7 +1,7 @@
 package services;
 
-import modules.AdaugareImposibila;
-import modules.Client;
+import models.AdaugareImposibila;
+import models.Client;
 
 public class UserService {
     private LocationService locationService;

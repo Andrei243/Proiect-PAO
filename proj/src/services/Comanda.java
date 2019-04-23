@@ -23,6 +23,11 @@ public class Comanda implements Comparable<Comanda> {
 
     }
 
+    @Override
+    public int hashCode(){
+        return nr_comanda;
+    }
+
     public Comanda(Client _client,Eveniment event)throws AdaugareImposibila {
         client=_client;
         eveniment=event;
@@ -30,5 +35,14 @@ public class Comanda implements Comparable<Comanda> {
         instantaPlata=event.adauga_bilet();
         nrComenzi++;
         nr_comanda=nrComenzi;
+    }
+
+    public Comanda(Client _client,Eveniment event,int _nr_comanda)throws AdaugareImposibila{
+        client=_client;
+        eveniment=event;
+        nr_comanda=_nr_comanda;
+        instantaPlata=event.adauga_bilet();
+        nrComenzi=Math.max(nr_comanda+1,nrComenzi+1);
+
     }
 }

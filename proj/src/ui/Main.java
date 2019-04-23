@@ -3,7 +3,7 @@ package ui;
 import modules.AdaugareImposibila;
 import services.UserService;
 
-import java.util.InputMismatchException;
+//import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -65,7 +65,7 @@ public class Main {
                         userService.adauga_comanda();
                         break;
                     case "12":
-                        userService.afiseaza_comanda();
+                        userService.afiseaza_comenzi();
                         break;
                     case "13":
                         raspuns_ret=true;

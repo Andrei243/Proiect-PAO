@@ -4,6 +4,8 @@ import models.events.*;
 import models.companies.*;
 import models.AdaugareImposibila;
 import models.payments.*;
+
+import models.Locatie;
 import java.util.*;
 
 public class EventService {
@@ -32,7 +34,7 @@ public class EventService {
     private ArrayList<Eveniment> evenimente=new ArrayList<>();
     Scanner scanner=new Scanner(System.in);
 
-    public Eveniment citeste_eveniment(ProductionService productionService,ScanService scanService) throws AdaugareImposibila {
+    public Eveniment citeste_eveniment(ProductionService productionService,ScanService scanService,LocationService locationService) throws AdaugareImposibila {
         String nume;
         System.out.println("Care e numele evenimentului?");
         nume=scanner.nextLine();
@@ -53,6 +55,8 @@ public class EventService {
         nr_maxim_persoane=Integer.parseInt( scanner.nextLine());
         System.out.println("Care e numarul necesar de scannere?");
         nr_necesar_scannere=Integer.parseInt( scanner.nextLine());
+        System.out.println("In ce locatie?");
+        Locatie locatie=locationService.ret_locatie();
         System.out.println("Pe ce data incepe?");
         Date data;
         do {
@@ -72,7 +76,7 @@ public class EventService {
             System.out.println("Cat costa?");
             double pret_zi=Double.parseDouble( scanner.nextLine());
             PlataSingulara plataSingulara=new PlataSingulara(pret_zi,data);
-            eveniment=new EvenimentDeOZi(nume,nr_maxim_persoane,nr_necesar_scannere,plataSingulara,firmaScanare,firmaProductie,data);
+            eveniment=new EvenimentDeOZi(nume,nr_maxim_persoane,nr_necesar_scannere,plataSingulara,firmaScanare,firmaProductie,data,locatie);
 
         }
         else{
@@ -82,7 +86,7 @@ public class EventService {
             System.out.println("Cat costa intr-o zi?");
             double pret_zi=Double.parseDouble( scanner.nextLine());
             PlataAbonament plataAbonament=new PlataAbonament(data,nr_zile,pret_zi);
-            eveniment=new EvenimentDeMaiMulteZile(nume,nr_maxim_persoane,nr_necesar_scannere,plataAbonament,firmaScanare,firmaProductie,data,nr_zile);
+            eveniment=new EvenimentDeMaiMulteZile(nume,nr_maxim_persoane,nr_necesar_scannere,plataAbonament,firmaScanare,firmaProductie,data,nr_zile,locatie);
 
 
 
@@ -91,8 +95,8 @@ public class EventService {
         return eveniment;
     }
 
-    public void adauga_eveniment(ProductionService productionService,ScanService scanService)throws AdaugareImposibila{
-        Eveniment eveniment=citeste_eveniment(productionService,scanService);
+    public void adauga_eveniment(ProductionService productionService,ScanService scanService,LocationService locationService)throws AdaugareImposibila{
+        Eveniment eveniment=citeste_eveniment(productionService,scanService,locationService);
         evenimente.add(eveniment);
         Collections.sort(evenimente);
         Logger.getInstance().add("S-a adaugat evenimentul "+eveniment.toString());

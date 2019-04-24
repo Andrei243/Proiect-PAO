@@ -1,9 +1,10 @@
 package models.payments;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PlataSingulara implements Plata {
+public class PlataSingulara implements Plata, Serializable {
     private double pret;
     private Date zi;
 

@@ -3,7 +3,9 @@ package models;
 import models.events.Eveniment;
 import models.payments.InstantaPlata;
 
-public class Comanda implements Comparable<Comanda> {
+import java.io.Serializable;
+
+public class Comanda implements Comparable<Comanda>, Serializable {
     static int nrComenzi=0;
     private int nr_comanda;
     private Client client;

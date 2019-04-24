@@ -2,12 +2,50 @@ package services;
 
 import models.companies.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScanService {
     private ArrayList<FirmaScanare> firmeScanare=new ArrayList<>();
     Scanner scanner=new Scanner(System.in);
+    ObjectOutputStream objectOutputStream;
+
+
+    public void init(){
+        ObjectInputStream objectInputStream;
+        try{
+            objectInputStream=new ObjectInputStream(new FileInputStream("firmeScanare.info"));
+
+            FirmaScanare firmaScanare;
+
+            while((firmaScanare=(FirmaScanare) objectInputStream.readObject())!=null){
+                firmeScanare.add(firmaScanare);
+            }
+        }
+
+        catch(FileNotFoundException filenotfound){
+            System.out.println("Inca nu exista fisierul, se creeaza acum");
+            File fisier=new File("firmeScanare.info");
+            boolean exista_deja;
+            try{
+                exista_deja=fisier.createNewFile();
+            }catch(Exception exc){
+                System.out.println("Nu s-a putut crea");
+            }
+        }
+        catch (Exception eof){
+        }
+
+
+try{
+    objectOutputStream=new ObjectOutputStream(new FileOutputStream("firmeScanare.info",true));
+
+}catch (Exception e){
+
+}
+
+    }
 
     public FirmaScanare citeste_firma_scanare(){
         System.out.println("Care e numele firmei de scanare?");
@@ -21,6 +59,14 @@ public class ScanService {
         FirmaScanare firmaScanare=citeste_firma_scanare();
         firmeScanare.add(firmaScanare);
         Logger.getInstance().add("S-a adaugat firma de scanare "+firmaScanare.toString()+"\n");
+
+
+        try{
+            objectOutputStream.writeObject(firmaScanare);
+
+        }catch(Exception exc){
+            System.out.println("CEVA A MERS FOARTE PROST");
+        }
     }
 
     public void afiseaza_firme_scanare(){

@@ -1,8 +1,9 @@
 package models.companies;
 
-import models.companies.Firma;
 
-public class FirmaScanare extends Firma {
+import java.io.Serializable;
+
+public class FirmaScanare extends Firma implements Serializable {
     protected int numar_scanere;
 
     public FirmaScanare(String _nume,int _numar_scanere){

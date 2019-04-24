@@ -1,10 +1,11 @@
 package models.payments;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class InstantaPlata {
+public class InstantaPlata implements Serializable {
     private String detalii;
     private double pret;
     private ArrayList<Date> zile;

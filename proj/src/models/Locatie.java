@@ -1,6 +1,8 @@
 package models;
 
-public class Locatie implements Comparable<Locatie>{
+import java.io.Serializable;
+
+public class Locatie implements Comparable<Locatie>, Serializable {
     String tara;
     String oras;
     public Locatie(String _tara,String _oras){

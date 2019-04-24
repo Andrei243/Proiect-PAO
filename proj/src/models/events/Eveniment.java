@@ -6,9 +6,10 @@ import models.companies.FirmaScanare;
 import models.payments.InstantaPlata;
 import models.payments.Plata;
 
+import java.io.Serializable;
 import java.util.Date;
 
-abstract public class Eveniment implements Comparable<Eveniment>{
+abstract public class Eveniment implements Comparable<Eveniment>, Serializable {
     protected String nume;
     protected int nr_maxim;
     protected int nr_scanere_necesare;
@@ -16,10 +17,11 @@ abstract public class Eveniment implements Comparable<Eveniment>{
     protected Date data_inceput;
     protected FirmaScanare firmaScanare;
     protected FirmaProductie firmaProductie;
+    protected Locatie locatie;
 
     protected Plata tip_plata;
 
-    public Eveniment(String _nume,int nr_maxim, int nr_scanere_necesare, Plata tip_plata,FirmaScanare _firmaScanare,FirmaProductie _firmaProductie,Date _dataInceput)throws AdaugareImposibila {
+    public Eveniment(String _nume,int nr_maxim, int nr_scanere_necesare, Plata tip_plata,FirmaScanare _firmaScanare,FirmaProductie _firmaProductie,Date _dataInceput,Locatie _locatie)throws AdaugareImposibila {
         nume=_nume;
         this.nr_maxim = nr_maxim;
         this.nr_scanere_necesare = nr_scanere_necesare;
@@ -27,6 +29,7 @@ abstract public class Eveniment implements Comparable<Eveniment>{
         firmaScanare=_firmaScanare;
         firmaProductie=_firmaProductie;
         data_inceput=_dataInceput;
+        locatie=_locatie;
         if(nr_scanere_necesare>firmaScanare.getNumar_scanere())throw new AdaugareImposibila("Nu sunt destule scannere");
     }
 

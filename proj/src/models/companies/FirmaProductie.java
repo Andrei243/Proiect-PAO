@@ -1,8 +1,9 @@
 package models.companies;
 
-import models.companies.Firma;
 
-public class FirmaProductie extends Firma {
+import java.io.Serializable;
+
+public class FirmaProductie extends Firma implements Serializable {
 
     public FirmaProductie(String _nume){
         super(_nume);

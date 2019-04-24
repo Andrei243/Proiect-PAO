@@ -1,8 +1,9 @@
 package models.payments;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class PlataAbonament implements Plata {
+public class PlataAbonament implements Plata, Serializable {
     private ArrayList<PlataSingulara> pretFiecareZi;
 
 

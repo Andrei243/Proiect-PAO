@@ -2,6 +2,7 @@ package services;
 
 import models.*;
 
+import java.io.*;
 import java.util.*;
 
 public class LocationService {
@@ -9,28 +10,41 @@ public class LocationService {
     private ArrayList<Locatie>locatii=new ArrayList<>();
 
     private static Scanner scanner=new Scanner(System.in);
-
-    private Date creaza_data(int an,int luna,int zi)throws AdaugareImposibila{
-        Calendar calendar=Calendar.getInstance();
-        calendar.set(Calendar.YEAR,an);
-        if(luna > 12)throw new AdaugareImposibila("Ultima luna a anului este a 12-a");
-        calendar.set(Calendar.MONTH,luna-1);
-        calendar.set(Calendar.DAY_OF_MONTH,zi);
-        return calendar.getTime();
-    }
-
-    private Date citeste_data()throws AdaugareImposibila{
-        int zi,luna,an;
-
-        System.out.print("ZI:");
-        zi=Integer.parseInt( scanner.nextLine());
-        System.out.print("Luna");
-        luna=Integer.parseInt( scanner.nextLine());
-        System.out.print("An:");
-        an=Integer.parseInt( scanner.nextLine());
+    ObjectOutputStream objectOutputStream;
 
 
-        return creaza_data(an,luna,zi);
+    public void init(){
+        ObjectInputStream objectInputStream;
+        try{
+            objectInputStream=new ObjectInputStream(new FileInputStream("locatii.info"));
+
+            Locatie locatie;
+
+            while((locatie=(Locatie)objectInputStream.readObject())!=null){
+                locatii.add(locatie);
+            }
+        }
+
+        catch(FileNotFoundException filenotfound){
+            System.out.println("Inca nu exista fisierul, se creeaza acum");
+            File fisier=new File("locatii.info");
+            boolean exista_deja;
+            try{
+                exista_deja=fisier.createNewFile();
+            }catch(Exception exc){
+                System.out.println("Nu s-a putut crea");
+            }        }
+        catch (Exception e){
+
+        }
+
+        try {
+            objectOutputStream = new ObjectOutputStream(new FileOutputStream("locatii.info", true));
+        }catch (Exception e){
+
+        }
+
+
     }
 
     private Locatie citeste_locatie(){
@@ -46,6 +60,14 @@ public class LocationService {
         locatii.add(aux);
         Collections.sort(locatii);
         Logger.getInstance().add("S-a adaugat locatia "+aux.toString()+"\n");
+
+
+        try{
+            objectOutputStream.writeObject(aux);
+
+        }catch(Exception exc){
+            System.out.println("CEVA A MERS FOARTE PROST");
+        }
     }
 
     public void afiseaza_locatii(){
@@ -55,7 +77,7 @@ public class LocationService {
 
     }
 
-    private Locatie ret_locatie(){
+    public Locatie ret_locatie(){
         do{
             System.out.println("Alege locatia indicand numarul");
             afiseaza_locatii();

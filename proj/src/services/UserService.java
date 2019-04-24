@@ -1,7 +1,6 @@
 package services;
 
 import models.AdaugareImposibila;
-import models.Client;
 
 public class UserService {
     private LocationService locationService;
@@ -18,7 +17,13 @@ public class UserService {
         productionService=new ProductionService();
         scanService=new ScanService();
         clientService=new ClientService();
+        locationService.init();
+        clientService.init();
+        productionService.init();
+        scanService.init();
     }
+
+
 
     public void adauga_locatie(){
         locationService.adauga_locatie();
@@ -45,7 +50,7 @@ public class UserService {
         scanService.afiseaza_firme_scanare();
     }
     public void adauga_eveniment()throws AdaugareImposibila {
-        eventService.adauga_eveniment(productionService,scanService);
+        eventService.adauga_eveniment(productionService,scanService,locationService);
     }
     public void afiseaza_evenimente(){
         eventService.afiseaza_evenimente();

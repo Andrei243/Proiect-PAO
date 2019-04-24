@@ -1,1 +1,21 @@
 2019-04-23_09:24:40 S-a adaugat locatia Romania Bucuresti
+2019-04-23_23:26:32 S-a adaugat locatia Franta Paris
+2019-04-24_10:38:58 S-a adaugat locatia Romania Bucuresti
+2019-04-24_10:46:42 S-a adaugat locatia Franta Paris
+2019-04-24_10:46:53 S-a adaugat clientul Nitu
+2019-04-24_10:47:03 S-a adaugat clientul Marian Darius
+2019-04-24_10:47:19 S-a adaugat firma de productie Ibis Production
+2019-04-24_10:47:39 S-a adaugat firma de scanare BdV Production
+2019-04-24_10:48:36 S-a adaugat clientul Marian Darius
+2019-04-24_11:06:01 S-a adaugat clientul Nitu
+2019-04-24_11:06:06 S-a adaugat clientul Burcea
+2019-04-24_11:10:02 S-a adaugat locatia Romania Bucuresti
+2019-04-24_11:10:13 S-a adaugat locatia Franta Paris
+2019-04-24_11:16:06 S-a adaugat locatia Romania Bucuresti
+2019-04-24_11:16:13 S-a adaugat clientul Nitu Mandel
+2019-04-24_11:16:18 S-a adaugat locatia Franta Paris
+2019-04-24_11:16:23 S-a adaugat clientul Darius Marian
+2019-04-24_11:16:32 S-a adaugat firma de productie Ibis Production
+2019-04-24_11:16:39 S-a adaugat firma de productie BdV Production
+2019-04-24_11:16:54 S-a adaugat firma de scanare Brigada de Voluntari
+2019-04-24_11:17:05 S-a adaugat firma de scanare Metalhead

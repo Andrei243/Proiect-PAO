@@ -1,13 +1,49 @@
 package services;
 
 import models.Client;
+import models.Locatie;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientService {
     private ArrayList<Client> clienti=new ArrayList<>();
     Scanner scanner=new Scanner(System.in);
+    ObjectOutputStream objectOutputStream;
+
+
+    public void init(){
+        ObjectInputStream objectInputStream;
+        try{
+
+            objectInputStream=new ObjectInputStream(new FileInputStream("clienti.info"));
+            Client client;
+            while((client=(Client) objectInputStream.readObject())!=null){
+                clienti.add(client);
+            }
+        }
+
+        catch(FileNotFoundException filenotfound){
+            System.out.println("Nu exista fisierul, se creeaza acum");
+            File fisier=new File("clienti.info");
+            boolean exista_deja;
+            try{
+                exista_deja=fisier.createNewFile();
+            }catch(Exception exc){
+                System.out.println("Nu s-a putut crea");
+            }        }
+        catch (Exception eof){
+        }
+try {
+    objectOutputStream = new ObjectOutputStream(new FileOutputStream("clienti.info", true));
+}catch (Exception e){
+
+}
+
+
+    }
+
     public Client citeste_client(){
         System.out.println("Care e numele clientului?");
         String nume=scanner.nextLine();
@@ -19,6 +55,15 @@ public class ClientService {
         Logger.getInstance().add("S-a adaugat clientul "+client.getNume()+"\n");
 
         clienti.add(client);
+
+
+        try{
+            objectOutputStream.writeObject(client);
+
+        }catch(Exception exc){
+            System.out.println("CEVA A MERS FOARTE PROST");
+        }
+
     }
 
     public void afiseaza_clienti(){

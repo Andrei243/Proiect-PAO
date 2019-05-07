@@ -1,14 +1,14 @@
 package ui;
 
 import models.AdaugareImposibila;
-import services.UserService;
+import services.AppService;
 
 //import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class MainCLI {
     public static void main(String[] args){
-        UserService userService=new UserService();
+        AppService userService=new AppService();
         Scanner scanner=new Scanner(System.in);
         boolean raspuns_ret=false;
 
@@ -69,6 +69,7 @@ public class Main {
                         break;
                     case "13":
                         raspuns_ret=true;
+                        userService.inchidere();
                         break;
                         default:
                         throw new AdaugareImposibila("Nu ai ales un raspuns valid");

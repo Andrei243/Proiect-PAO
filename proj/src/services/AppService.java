@@ -2,7 +2,7 @@ package services;
 
 import models.AdaugareImposibila;
 
-public class UserService {
+public class AppService {
     private LocationService locationService;
     private ComandService comandService;
     private EventService eventService;
@@ -10,17 +10,17 @@ public class UserService {
     private ScanService scanService;
     private ClientService clientService;
 
-    public UserService(){
+    public AppService(){
         locationService=new LocationService();
         comandService=new ComandService();
         eventService=new EventService();
         productionService=new ProductionService();
         scanService=new ScanService();
         clientService=new ClientService();
-        locationService.init();
-        clientService.init();
-        productionService.init();
-        scanService.init();
+        clientService.init("clienti.info");
+        locationService.init("locatii.info");
+        productionService.init("firmeProductie.info");
+        scanService.init("firmeScanare.info");
     }
 
 
@@ -60,6 +60,13 @@ public class UserService {
     }
     public void afiseaza_comenzi(){
         comandService.afiseaza_comanda();
+    }
+    public void inchidere(){
+        clientService.inchidere();
+        locationService.inchidere();
+        productionService.inchidere();
+        scanService.inchidere();
+
     }
 
 }

@@ -1,0 +1,15 @@
+2019-04-24_12:12:00 S-a adaugat locatia Romania Bucuresti
+2019-05-07_08:15:49 S-a adaugat clientul Nitu Mandel-Andrei
+2019-05-07_08:40:47 S-a adaugat locatia Franta Paris
+2019-05-07_08:41:51 S-a adaugat locatia Franta Paris
+2019-05-07_08:48:31 S-a adaugat clientul Nitu Mandel-Andrei
+2019-05-07_09:16:41 S-a adaugat locatia Romania Bucuresti
+2019-05-07_09:16:49 S-a adaugat locatia Franta Paris
+2019-05-07_09:16:59 S-a adaugat clientul Nitu Mandel-Andrei
+2019-05-07_09:17:07 S-a adaugat clientul Marian Darius
+2019-05-07_09:21:31 S-a adaugat locatia Romania Bucuresti
+2019-05-07_09:21:38 S-a adaugat locatia Franta Paris
+2019-05-07_09:25:10 S-a adaugat locatia Romania Bucuresti
+2019-05-07_09:25:15 S-a adaugat locatia Franta Paris
+2019-05-07_09:25:48 S-a adaugat locatia Romania Bucuresti
+2019-05-07_09:25:53 S-a adaugat locatia Franta Paris

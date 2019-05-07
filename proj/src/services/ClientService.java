@@ -1,48 +1,12 @@
 package services;
 
 import models.Client;
-import models.Locatie;
-
-import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ClientService {
-    private ArrayList<Client> clienti=new ArrayList<>();
+public class ClientService extends GenericService<Client>{
     Scanner scanner=new Scanner(System.in);
-    ObjectOutputStream objectOutputStream;
 
 
-    public void init(){
-        ObjectInputStream objectInputStream;
-        try{
-
-            objectInputStream=new ObjectInputStream(new FileInputStream("clienti.info"));
-            Client client;
-            while((client=(Client) objectInputStream.readObject())!=null){
-                clienti.add(client);
-            }
-        }
-
-        catch(FileNotFoundException filenotfound){
-            System.out.println("Nu exista fisierul, se creeaza acum");
-            File fisier=new File("clienti.info");
-            boolean exista_deja;
-            try{
-                exista_deja=fisier.createNewFile();
-            }catch(Exception exc){
-                System.out.println("Nu s-a putut crea");
-            }        }
-        catch (Exception eof){
-        }
-try {
-    objectOutputStream = new ObjectOutputStream(new FileOutputStream("clienti.info", true));
-}catch (Exception e){
-
-}
-
-
-    }
 
     public Client citeste_client(){
         System.out.println("Care e numele clientului?");
@@ -54,21 +18,14 @@ try {
         Client client=citeste_client();
         Logger.getInstance().add("S-a adaugat clientul "+client.getNume()+"\n");
 
-        clienti.add(client);
+        elemente.add(client);
 
-
-        try{
-            objectOutputStream.writeObject(client);
-
-        }catch(Exception exc){
-            System.out.println("CEVA A MERS FOARTE PROST");
-        }
 
     }
 
     public void afiseaza_clienti(){
-        for(int i=0;i<clienti.size();i++){
-            System.out.println((i+1)+"."+clienti.get(i).getNume());
+        for(int i = 0; i< elemente.size(); i++){
+            System.out.println((i+1)+"."+ elemente.get(i).getNume());
         }
     }
 
@@ -77,8 +34,8 @@ try {
             System.out.println("Alege locatia indicand numarul");
             afiseaza_clienti();
             int nr_ales=scanner.nextInt();
-            if(nr_ales>0&&nr_ales<=clienti.size()){
-                return clienti.get(nr_ales-1);
+            if(nr_ales>0&&nr_ales<= elemente.size()){
+                return elemente.get(nr_ales-1);
             }
         }while (true);
 

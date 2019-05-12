@@ -1,6 +1,8 @@
 package services;
 
 import models.AdaugareImposibila;
+import stringsToObject.*;
+
 
 public class AppService {
     private LocationService locationService;
@@ -17,10 +19,14 @@ public class AppService {
         productionService=new ProductionService();
         scanService=new ScanService();
         clientService=new ClientService();
-        clientService.init("clienti.info");
-        locationService.init("locatii.info");
-        productionService.init("firmeProductie.info");
-        scanService.init("firmeScanare.info");
+        StringToClient proc1=new StringToClient();
+        clientService.init("clienti",proc1);
+        StringToLocatie proc2 = new StringToLocatie();
+        locationService.init("locatii",proc2);
+        StringtoFirmaProductie proc3=new StringtoFirmaProductie();
+        productionService.init("firmeProductie",proc3);
+        StringToFirmaScanare proc4=new StringToFirmaScanare();
+        scanService.init("firmeScanare",proc4);
     }
 
 
@@ -62,10 +68,10 @@ public class AppService {
         comandService.afiseaza_comanda();
     }
     public void inchidere(){
-        clientService.inchidere();
-        locationService.inchidere();
-        productionService.inchidere();
-        scanService.inchidere();
+//        clientService.inchidere();
+//        locationService.inchidere();
+//        productionService.inchidere();
+//        scanService.inchidere();
 
     }
 

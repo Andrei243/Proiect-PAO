@@ -26,6 +26,10 @@ public class MainCLI {
             System.out.println("11.Faci o comanda");
             System.out.println("12.Afisezi toate comenzile de pana acum");
             System.out.println("13.Inchizi programul");
+            System.out.println("14.Sterge o locatie");
+            System.out.println("15.Sterge un client");
+            System.out.println("16.Sterge o firma de productie");
+            System.out.println("17.Sterge o firma de scanare");
 
             try {
                 String alegere=scanner.nextLine();
@@ -68,7 +72,18 @@ public class MainCLI {
                         break;
                     case "13":
                         raspuns_ret=true;
-                        userService.inchidere();
+                        break;
+                    case "14":
+                        userService.sterge_locatie();
+                        break;
+                    case "15":
+                        userService.sterge_client();
+                        break;
+                    case "16":
+                        userService.sterge_firma_productie();
+                        break;
+                    case "17":
+                        userService.sterge_firma_scanare();
                         break;
                         default:
                         throw new AdaugareImposibila("Nu ai ales un raspuns valid");

@@ -47,4 +47,15 @@ public class ProductionService extends GenericService<FirmaProductie> {
 
     }
 
+    public void stergeFirmaProductie(){
+        FirmaProductie firmaProductie=ret_firma_productie();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append(" nume = '");
+        stringBuilder.append(firmaProductie.getNume());
+        stringBuilder.append("'");
+        stergeElement("FirmeProductie",stringBuilder.toString());
+        elemente.remove(firmaProductie);
+
+    }
+
 }

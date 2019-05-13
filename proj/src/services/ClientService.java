@@ -49,4 +49,19 @@ public class ClientService extends GenericService<Client>{
         }while (true);
 
     }
+
+    public void stergeClient(){
+        Client client=ret_client();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append(" nume ='");
+        stringBuilder.append(client.getNume());
+        stringBuilder.append("'");
+        stergeElement("Clienti",stringBuilder.toString());
+        elemente.remove(client);
+
+
+    }
+
 }
+
+

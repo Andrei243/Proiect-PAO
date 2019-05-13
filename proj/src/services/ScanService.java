@@ -51,4 +51,16 @@ public class ScanService extends GenericService<FirmaScanare>{
         }while (true);
 
     }
+
+    public void stergeFirmaScanare(){
+        FirmaScanare firmaScanare=ret_firma_scanare();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append(" nume = '");
+        stringBuilder.append(firmaScanare.getNume());
+        stringBuilder.append("' and nrScanare = ");
+        stringBuilder.append(((Integer)firmaScanare.getNumar_scanere()).toString());
+        stergeElement("FirmeScanare",stringBuilder.toString());
+        elemente.remove(firmaScanare);
+    }
+
 }

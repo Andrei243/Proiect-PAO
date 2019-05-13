@@ -52,6 +52,33 @@ catch(Exception e){
 
 }
 
+class StergatorDinBD implements Runnable{
+    private String conditie;
+    private String tabel;
+    StergatorDinBD(String _conditie,String _tabel){
+        conditie=_conditie;
+        tabel=_tabel;
+    }
+    @Override
+    public void run(){
+        String qrySQL="Delete from "+tabel+" where "+conditie;
+        String database="jdbc:mysql://localhost:3306/ProiectPAO?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+
+        try(  Connection  conn=DriverManager.getConnection( database, "Andrei243","Andrei243");
+              Statement stmt=conn.createStatement();
+        ) {
+            int nr=stmt.executeUpdate(qrySQL);
+
+
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+}
+
 class AdaugatorInBD<T> implements Runnable{
     ArrayList<String> element;
     String tabel;
@@ -93,6 +120,11 @@ abstract public class GenericService<T> {
 
     protected ArrayList<T>elemente =new ArrayList<>();
     private ObjectOutputStream objectOutputStream;
+
+    protected void stergeElement(String numetabel,String conditie){
+        Thread thread=new Thread(new StergatorDinBD(conditie,numetabel));
+        thread.run();
+    }
 
     protected void adaugaElement(String numetabel,ArrayList<String> campuri){
         Thread thread=new Thread(new AdaugatorInBD<T>(campuri,numetabel));

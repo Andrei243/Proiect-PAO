@@ -57,9 +57,18 @@ public class LocationService extends GenericService<Locatie> {
 
     }
 
+    public void stergereLocatie(){
+        Locatie locatie=ret_locatie();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("tara = '");
+        stringBuilder.append(locatie.getTara());
+        stringBuilder.append("' and oras = '");
+        stringBuilder.append(locatie.getOras());
+        stringBuilder.append("'");
+        stergeElement("Locatii",stringBuilder.toString());
+        elemente.remove(locatie);
 
-
-
+    }
 
 
 

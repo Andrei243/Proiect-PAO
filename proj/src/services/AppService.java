@@ -67,12 +67,9 @@ public class AppService {
     public void afiseaza_comenzi(){
         comandService.afiseaza_comanda();
     }
-    public void inchidere(){
-//        clientService.inchidere();
-//        locationService.inchidere();
-//        productionService.inchidere();
-//        scanService.inchidere();
-
-    }
+    public void sterge_locatie(){locationService.stergereLocatie();}
+    public void sterge_client(){clientService.stergeClient();}
+    public  void sterge_firma_scanare(){scanService.stergeFirmaScanare();}
+    public void sterge_firma_productie(){productionService.afiseaza_firme_productie();}
 
 }

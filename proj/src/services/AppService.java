@@ -20,13 +20,13 @@ public class AppService {
         scanService=new ScanService();
         clientService=new ClientService();
         StringToClient proc1=new StringToClient();
-        clientService.init("clienti",proc1);
+        clientService.init("Clienti",proc1);
         StringToLocatie proc2 = new StringToLocatie();
-        locationService.init("locatii",proc2);
+        locationService.init("Locatii",proc2);
         StringtoFirmaProductie proc3=new StringtoFirmaProductie();
-        productionService.init("firmeProductie",proc3);
+        productionService.init("FirmeProductie",proc3);
         StringToFirmaScanare proc4=new StringToFirmaScanare();
-        scanService.init("firmeScanare",proc4);
+        scanService.init("FirmeScanare",proc4);
     }
 
 

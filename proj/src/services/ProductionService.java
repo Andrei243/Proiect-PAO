@@ -1,6 +1,8 @@
 package services;
 
 import models.companies.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProductionService extends GenericService<FirmaProductie> {
@@ -16,6 +18,13 @@ public class ProductionService extends GenericService<FirmaProductie> {
     public void adauga_firma_productie(){
         FirmaProductie firmaProductie=citeste_firma_productie();
         elemente.add(firmaProductie);
+        ArrayList<String>element=new ArrayList<>();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("\"");
+        stringBuilder.append(firmaProductie.getNume());
+        stringBuilder.append("\"");
+        element.add(stringBuilder.toString());
+        adaugaElement("FirmeProductie",element);
         Logger.getInstance().add("S-a adaugat firma de productie "+firmaProductie.toString()+"\n");
 
     }

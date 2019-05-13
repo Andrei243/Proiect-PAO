@@ -21,6 +21,19 @@ public class LocationService extends GenericService<Locatie> {
         Locatie aux=citeste_locatie();
         elemente.add(aux);
         Collections.sort(elemente);
+        ArrayList<String> element=new ArrayList<>();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("\"");
+        stringBuilder.append(aux.getTara());
+        stringBuilder.append("\"");
+        element.add(stringBuilder.toString());
+        stringBuilder.setLength(0);
+        stringBuilder.append("\"");
+        stringBuilder.append(aux.getOras());
+        stringBuilder.append("\"");
+        element.add(stringBuilder.toString());
+        adaugaElement("Locatii",element);
+
         Logger.getInstance().add("S-a adaugat locatia "+aux.toString()+"\n");
 
     }

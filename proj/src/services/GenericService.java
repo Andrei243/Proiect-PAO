@@ -20,8 +20,9 @@ class CititorDinBD<T> extends SwingWorker<Integer,ArrayList<String>>{
 
     protected Integer doInBackground(){
 String qrySQL="SELECT * FROM "+numeTabel;
+String database="jdbc:mysql://localhost:3306/ProiectPAO?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
-try(  Connection  conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/ProiectPAO?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" , "root","Andrei243");
+try(  Connection  conn=DriverManager.getConnection( database, "Andrei243","Andrei243");
       Statement stmt=conn.createStatement();
       ResultSet rs=stmt.executeQuery(qrySQL);
         ) {
@@ -51,10 +52,54 @@ catch(Exception e){
 
 }
 
+class AdaugatorInBD<T> implements Runnable{
+    ArrayList<String> element;
+    String tabel;
+
+    AdaugatorInBD(ArrayList<String> _element,String _tabel){
+        element=_element;
+        tabel=_tabel;
+    }
+
+    @Override
+    public void run(){
+        StringBuilder qrybuilder=new StringBuilder();
+        qrybuilder.append("Insert into " + tabel+" values(");
+        qrybuilder.append(element.get(0));
+        for(int i=1;i<element.size();i++){
+            qrybuilder.append(","+element.get(i));
+        }
+        qrybuilder.append(")");
+        String qrySQL=qrybuilder.toString();
+        String database="jdbc:mysql://localhost:3306/ProiectPAO?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        try(  Connection  conn=DriverManager.getConnection( database, "Andrei243","Andrei243");
+              Statement stmt=conn.createStatement();
+        ) {
+            int nr=stmt.executeUpdate(qrySQL);
+
+
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+}
+
 abstract public class GenericService<T> {
 
     protected ArrayList<T>elemente =new ArrayList<>();
     private ObjectOutputStream objectOutputStream;
+
+    protected void adaugaElement(String numetabel,ArrayList<String> campuri){
+        Thread thread=new Thread(new AdaugatorInBD<T>(campuri,numetabel));
+        thread.run();
+
+    }
+
     protected void init(String numeTabel,StringToObject<T> procesator){
         CititorDinBD<T> cititor=new CititorDinBD<T>(numeTabel,elemente,procesator);
         cititor.execute();

@@ -1,6 +1,8 @@
 package services;
 
 import models.Client;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientService extends GenericService<Client>{
@@ -18,6 +20,13 @@ public class ClientService extends GenericService<Client>{
         Client client=citeste_client();
         Logger.getInstance().add("S-a adaugat clientul "+client.getNume()+"\n");
 
+        ArrayList<String> element=new ArrayList<>();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("\"");
+        stringBuilder.append(client.getNume());
+        stringBuilder.append("\"");
+        element.add(stringBuilder.toString());
+        adaugaElement("Clienti",element);
         elemente.add(client);
 
 

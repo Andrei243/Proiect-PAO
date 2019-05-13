@@ -1,6 +1,8 @@
 package services;
 
 import models.companies.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScanService extends GenericService<FirmaScanare>{
@@ -19,6 +21,15 @@ public class ScanService extends GenericService<FirmaScanare>{
     public void adauga_firma_scanare(){
         FirmaScanare firmaScanare=citeste_firma_scanare();
         elemente.add(firmaScanare);
+        ArrayList<String>element=new ArrayList<>();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("\"");
+        stringBuilder.append(firmaScanare.getNume());
+        stringBuilder.append("\"");
+        element.add(stringBuilder.toString());
+        element.add(((Integer)firmaScanare.getNumar_scanere()).toString());
+        adaugaElement("FirmeScanare",element);
+
         Logger.getInstance().add("S-a adaugat firma de scanare "+firmaScanare.toString()+"\n");
 
     }

@@ -10,11 +10,11 @@ public class Locatie implements Comparable<Locatie>, Serializable {
         oras=_oras;
     }
 
-    String getTara(){
+    public String getTara(){
         return tara;
     }
 
-    String getOras(){
+    public String getOras(){
         return oras;
     }
 

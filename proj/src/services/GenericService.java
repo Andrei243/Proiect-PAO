@@ -19,7 +19,7 @@ class CititorDinBD<T> extends SwingWorker<Integer,ArrayList<String>>{
     }
 
     protected Integer doInBackground(){
-String qrySQL="SELECT * FROM "+numeTabel;
+String qrySQL="SELECT * FROM "+numeTabel + " ORDER BY 1";
 String database="jdbc:mysql://localhost:3306/ProiectPAO?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
 try(  Connection  conn=DriverManager.getConnection( database, "Andrei243","Andrei243");
@@ -68,8 +68,6 @@ class StergatorDinBD implements Runnable{
               Statement stmt=conn.createStatement();
         ) {
             int nr=stmt.executeUpdate(qrySQL);
-
-
         }
 
         catch(Exception e){
@@ -78,6 +76,41 @@ class StergatorDinBD implements Runnable{
     }
 
 }
+
+class EditorInBD implements Runnable{
+    String cerere;
+    String tabel;
+    EditorInBD(String _tabel,String _cerere){
+        tabel=_tabel;
+        cerere=_cerere;
+    }
+
+    @Override
+    public void run(){
+        StringBuilder qrybuilder=new StringBuilder();
+        qrybuilder.append("Update ");
+        qrybuilder.append(tabel);
+        qrybuilder.append(" ");
+        qrybuilder.append(cerere);
+        String qrySQL=qrybuilder.toString();
+        String database="jdbc:mysql://localhost:3306/ProiectPAO?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        try(  Connection  conn=DriverManager.getConnection( database, "Andrei243","Andrei243");
+              Statement stmt=conn.createStatement();
+        ) {
+            int nr=stmt.executeUpdate(qrySQL);
+
+
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+}
+
 
 class AdaugatorInBD<T> implements Runnable{
     ArrayList<String> element;
@@ -129,7 +162,10 @@ abstract public class GenericService<T> {
     protected void adaugaElement(String numetabel,ArrayList<String> campuri){
         Thread thread=new Thread(new AdaugatorInBD<T>(campuri,numetabel));
         thread.run();
-
+    }
+    protected  void schimbaElement(String numetabel,String cerere){
+        Thread thread=new Thread(new EditorInBD(numetabel,cerere));
+        thread.run();
     }
 
     protected void init(String numeTabel,StringToObject<T> procesator){

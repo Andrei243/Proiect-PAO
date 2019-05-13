@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class MainCLI {
     public static void main(String[] args){
-        AppService userService=new AppService();
+        AppService userService=AppService.getInstance();
         Scanner scanner=new Scanner(System.in);
         boolean raspuns_ret=false;
 

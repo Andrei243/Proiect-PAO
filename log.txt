@@ -3,3 +3,7 @@
 2019-05-13_11:47:56 S-a adaugat locatia Germina Berlin
 2019-05-13_17:25:22 S-a adaugat locatia Germania Berlin
 2019-05-13_17:26:03 S-a adaugat locatia Germania Berlin
+2019-05-13_20:55:10 S-a adaugat locatia Germania Berlin
+2019-05-13_20:55:26 S-a adaugat clientul Rosca Catalin-Alexandru
+2019-05-13_20:56:17 S-a adaugat firma de productie Linux Events
+2019-05-13_20:56:38 S-a adaugat firma de scanare iaBilet

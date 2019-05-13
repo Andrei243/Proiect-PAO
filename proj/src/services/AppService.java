@@ -5,6 +5,7 @@ import stringsToObject.*;
 
 
 public class AppService {
+    private static AppService instance=null;
     private LocationService locationService;
     private ComandService comandService;
     private EventService eventService;
@@ -12,7 +13,14 @@ public class AppService {
     private ScanService scanService;
     private ClientService clientService;
 
-    public AppService(){
+    public static AppService getInstance() {
+        if(instance==null){
+            instance=new AppService();
+        }
+        return instance;
+    }
+
+    private AppService(){
         locationService=new LocationService();
         comandService=new ComandService();
         eventService=new EventService();

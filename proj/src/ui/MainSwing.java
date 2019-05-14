@@ -14,8 +14,12 @@ import services.AppService;
 public class MainSwing {
     JFrame jFrame;
     AppService appService=AppService.getInstance();
+
+    static private Dimension dimension=new Dimension(160,20);
+    static private Dimension dimlist=new Dimension(400,600);
+
     private void initializareLocatii(){
-jFrame.dispose();
+        jFrame.dispose();
         jFrame=new JFrame();
 
         jFrame.setSize(800,800);
@@ -33,7 +37,21 @@ jFrame.dispose();
         JList jlist=new JList(list);
         jlist.setBounds(20,20,400,400);
         JScrollPane jScrollPane=new JScrollPane(jlist);
+        jScrollPane.setSize(dimlist);
         pane.add(jScrollPane,BorderLayout.LINE_START);
+
+        JPanel jPanelSus=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton jButton=new JButton("Intoarce-te la meniul principal");
+        jButton.setSize(300,50);
+        jButton.addActionListener((e)->{
+            jFrame.setVisible(false);
+            jFrame.removeAll();
+            intializareFereastraInitiala();
+
+        }  );
+        jPanelSus.add(jButton);
+        pane.add(jPanelSus,BorderLayout.PAGE_START);
+
 
         JPanel jPaneldreapta=new JPanel();
         JButton stergere=new JButton("sterge");
@@ -65,7 +83,7 @@ jFrame.dispose();
         jPaneltara.setLayout(new BoxLayout(jPaneltara,BoxLayout.Y_AXIS));
         JLabel jLabeltara=new JLabel("Tara:");
         JTextField jTextFieldTara=new JTextField();
-        jTextFieldTara.setSize(200,10);
+        jTextFieldTara.setPreferredSize(dimension);
         jPaneltara.add(jLabeltara);
         jPaneltara.add(jTextFieldTara);
 
@@ -73,7 +91,7 @@ jFrame.dispose();
         jPaneloras.setLayout(new BoxLayout(jPaneloras,BoxLayout.Y_AXIS));
         JLabel jLabeloras=new JLabel("Oras:");
         JTextField jTextFieldOras=new JTextField();
-        jTextFieldOras.setSize(200,10);
+        jTextFieldOras.setPreferredSize(dimension);
         jPaneloras.add(jLabeloras);
         jPaneloras.add(jTextFieldOras);
 
@@ -131,32 +149,404 @@ jFrame.dispose();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
+
+
     private void initializareClienti(){
         jFrame.dispose();
-
         jFrame=new JFrame();
 
-        intializareFereastraInitiala();
+        jFrame.setSize(800,800);
+        Container pane=jFrame.getContentPane();
+        jFrame.setVisible(true);
+
+        BorderLayout borderLayout=new BorderLayout(10,10);
+        jFrame.setLayout(borderLayout);
+        ArrayList<String> stringuri=appService.getClientsStrings();
+        DefaultListModel<String> list=new DefaultListModel<>();
+        for(String s : stringuri){
+            list.addElement(s);
+        }
+
+        JList jlist=new JList(list);
+        jlist.setBounds(20,20,400,400);
+        JScrollPane jScrollPane=new JScrollPane(jlist);
+        jScrollPane.setSize(dimlist);
+        pane.add(jScrollPane,BorderLayout.LINE_START);
+
+
+        JPanel jPanelSus=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton jButton=new JButton("Intoarce-te la meniul principal");
+        jButton.setSize(300,50);
+        jButton.addActionListener((e)->{
+            jFrame.setVisible(false);
+            jFrame.removeAll();
+            intializareFereastraInitiala();
+
+        }  );
+        jPanelSus.add(jButton);
+        pane.add(jPanelSus,BorderLayout.PAGE_START);
+
+
+
+        JPanel jPaneldreapta=new JPanel();
+        JButton stergere=new JButton("Sterge");
+        stergere.setSize(50,50);
+        stergere.addActionListener((e)->{
+            if(jlist.getSelectedIndex()==-1){
+                JOptionPane.showMessageDialog(null,"Trebuie sa selectezi un element");
+            }
+            else{
+                int index=jlist.getSelectedIndex();
+                appService.sterge_client(index);
+                jFrame.setVisible(false);
+                jFrame.removeAll();
+                initializareClienti();
+            }
+
+        }  );
+        jPaneldreapta.add(stergere);
+        pane.add(stergere,BorderLayout.LINE_END);
+
+        JPanel jPaneljos=new JPanel();
+        jPaneljos.setLayout(new BoxLayout(jPaneljos,BoxLayout.Y_AXIS));
+
+        JPanel jPanelTextFields=new JPanel();
+
+        jPanelTextFields.setLayout(new FlowLayout());
+
+        JPanel jPanelNume=new JPanel();
+        jPanelNume.setLayout(new BoxLayout(jPanelNume,BoxLayout.Y_AXIS));
+        JLabel jLabeltara=new JLabel("Nume:");
+        JTextField jTextNume=new JTextField();
+        jTextNume.setPreferredSize(dimension);
+        jPanelNume.add(jLabeltara);
+        jPanelNume.add(jTextNume);
+
+
+        jPanelTextFields.add(jPanelNume);
+
+
+        JPanel jPanelButoane=new JPanel();
+        jPanelButoane.setLayout(new FlowLayout());
+        JButton jButtonAdaugare=new JButton("Adauga");
+        jButtonAdaugare.setSize(30,5);
+        jButtonAdaugare.addActionListener((e)->{
+            if(jTextNume.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Trebuie sa introduci ceva nenul");
+            }
+            else{
+                appService.adauga_client(jTextNume.getText());
+                jFrame.removeAll();
+                jFrame.setVisible(false);
+                initializareClienti();
+            }
+
+        } );
+        JButton jButtonEditare=new JButton("Editeaza");
+        jButtonEditare.setSize(30,5);
+        jButtonEditare.addActionListener((e)->{
+            if(jTextNume.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Trebuie sa introduci ceva nenul");
+            }
+            else{
+                if(jlist.getSelectedIndex()==-1){
+                    JOptionPane.showMessageDialog(null,"Trebuie sa selectezi celula pe care vrei sa o editezi");
+                }
+                else {
+                    appService.schimba_client(jlist.getSelectedIndex(),jTextNume.getText());
+                    jTextNume.setText("");
+                    jFrame.removeAll();
+                    jFrame.setVisible(false);
+                    initializareClienti();
+                }
+            }
+        }  );
+
+        jPanelButoane.add(jButtonAdaugare);
+        jPanelButoane.add(jButtonEditare);
+
+        jPaneljos.add(jPanelTextFields);
+        jPaneljos.add(jPanelButoane);
+        pane.add(jPaneljos,BorderLayout.PAGE_END);
+
+
+        System.out.println("Gata");
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
     private void initializareFirmeProductie(){
         jFrame.dispose();
-
         jFrame=new JFrame();
 
-        intializareFereastraInitiala();
+        jFrame.setSize(800,800);
+        Container pane=jFrame.getContentPane();
+        jFrame.setVisible(true);
+
+        BorderLayout borderLayout=new BorderLayout(10,10);
+        jFrame.setLayout(borderLayout);
+        ArrayList<String> stringuri=appService.getProductionStrings();
+        DefaultListModel<String> list=new DefaultListModel<>();
+        for(String s : stringuri){
+            list.addElement(s);
+        }
+
+        JList jlist=new JList(list);
+        jlist.setBounds(20,20,400,400);
+        JScrollPane jScrollPane=new JScrollPane(jlist);
+        jScrollPane.setSize(dimlist);
+
+        pane.add(jScrollPane,BorderLayout.LINE_START);
+
+
+        JPanel jPanelSus=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton jButton=new JButton("Intoarce-te la meniul principal");
+        jButton.setSize(300,50);
+        jButton.addActionListener((e)->{
+            jFrame.setVisible(false);
+            jFrame.removeAll();
+            intializareFereastraInitiala();
+
+        }  );
+        jPanelSus.add(jButton);
+        pane.add(jPanelSus,BorderLayout.PAGE_START);
+
+
+
+        JPanel jPaneldreapta=new JPanel();
+        JButton stergere=new JButton("Sterge");
+        stergere.setSize(50,50);
+        stergere.addActionListener((e)->{
+            if(jlist.getSelectedIndex()==-1){
+                JOptionPane.showMessageDialog(null,"Trebuie sa selectezi un element");
+            }
+            else{
+                int index=jlist.getSelectedIndex();
+                appService.sterge_firma_productie(index);
+                jFrame.setVisible(false);
+                jFrame.removeAll();
+                initializareFirmeProductie();
+            }
+
+        }  );
+        jPaneldreapta.add(stergere);
+        pane.add(stergere,BorderLayout.LINE_END);
+
+        JPanel jPaneljos=new JPanel();
+        jPaneljos.setLayout(new BoxLayout(jPaneljos,BoxLayout.Y_AXIS));
+
+        JPanel jPanelTextFields=new JPanel();
+
+        jPanelTextFields.setLayout(new FlowLayout());
+
+        JPanel jPanelNume=new JPanel();
+        jPanelNume.setLayout(new BoxLayout(jPanelNume,BoxLayout.Y_AXIS));
+        JLabel jLabelNume=new JLabel("Nume:");
+        JTextField jTextNume=new JTextField();
+        jTextNume.setPreferredSize(dimension);
+        jPanelNume.add(jLabelNume);
+        jPanelNume.add(jTextNume);
+
+
+        jPanelTextFields.add(jPanelNume);
+
+
+        JPanel jPanelButoane=new JPanel();
+        jPanelButoane.setLayout(new FlowLayout());
+        JButton jButtonAdaugare=new JButton("Adauga");
+        jButtonAdaugare.setSize(30,5);
+        jButtonAdaugare.addActionListener((e)->{
+            if(jTextNume.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Trebuie sa introduci ceva nenul");
+            }
+            else{
+                appService.adauga_firma_productie(jTextNume.getText());
+                jFrame.removeAll();
+                jFrame.setVisible(false);
+                initializareFirmeProductie();
+            }
+
+        } );
+        JButton jButtonEditare=new JButton("Editeaza");
+        jButtonEditare.setSize(30,5);
+        jButtonEditare.addActionListener((e)->{
+            if(jTextNume.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Trebuie sa introduci ceva nenul");
+            }
+            else{
+                if(jlist.getSelectedIndex()==-1){
+                    JOptionPane.showMessageDialog(null,"Trebuie sa selectezi celula pe care vrei sa o editezi");
+                }
+                else {
+                    appService.schimba_firma_productie(jlist.getSelectedIndex(),jTextNume.getText());
+                    jTextNume.setText("");
+                    jFrame.removeAll();
+                    jFrame.setVisible(false);
+                    initializareFirmeProductie();
+                }
+            }
+        }  );
+
+        jPanelButoane.add(jButtonAdaugare);
+        jPanelButoane.add(jButtonEditare);
+
+        jPaneljos.add(jPanelTextFields);
+        jPaneljos.add(jPanelButoane);
+        pane.add(jPaneljos,BorderLayout.PAGE_END);
+
+
+        System.out.println("Gata");
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
     private void initializareFirmeScanare(){
         jFrame.dispose();
-
         jFrame=new JFrame();
 
-        intializareFereastraInitiala();
+        jFrame.setSize(800,800);
+        Container pane=jFrame.getContentPane();
+        jFrame.setVisible(true);
+
+        BorderLayout borderLayout=new BorderLayout(10,10);
+        jFrame.setLayout(borderLayout);
+        ArrayList<String> stringuri=appService.getScanStrings();
+        DefaultListModel<String> list=new DefaultListModel<>();
+        for(String s : stringuri){
+            list.addElement(s);
+        }
+
+        JList jlist=new JList(list);
+        jlist.setBounds(20,20,400,400);
+        JScrollPane jScrollPane=new JScrollPane(jlist);
+        jScrollPane.setSize(dimlist);
+
+        pane.add(jScrollPane,BorderLayout.LINE_START);
+
+        JPanel jPanelSus=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton jButton=new JButton("Intoarce-te la meniul principal");
+        jButton.setSize(300,50);
+        jButton.addActionListener((e)->{
+            jFrame.setVisible(false);
+            jFrame.removeAll();
+            intializareFereastraInitiala();
+
+        }  );
+        jPanelSus.add(jButton);
+        pane.add(jPanelSus,BorderLayout.PAGE_START);
+
+
+        JPanel jPaneldreapta=new JPanel();
+        JButton stergere=new JButton("Sterge");
+        stergere.setSize(50,50);
+        stergere.addActionListener((e)->{
+            if(jlist.getSelectedIndex()==-1){
+                JOptionPane.showMessageDialog(null,"Trebuie sa selectezi un element");
+            }
+            else{
+                int index=jlist.getSelectedIndex();
+                appService.sterge_firma_scanare(index);
+                jFrame.setVisible(false);
+                jFrame.removeAll();
+                initializareFirmeScanare();
+            }
+
+        }  );
+        jPaneldreapta.add(stergere);
+        pane.add(stergere,BorderLayout.LINE_END);
+
+        JPanel jPaneljos=new JPanel();
+        jPaneljos.setLayout(new BoxLayout(jPaneljos,BoxLayout.Y_AXIS));
+
+        JPanel jPanelTextFields=new JPanel();
+
+        jPanelTextFields.setLayout(new FlowLayout());
+
+        JPanel jPanelNume=new JPanel();
+        jPanelNume.setLayout(new BoxLayout(jPanelNume,BoxLayout.Y_AXIS));
+        JLabel jLabelNume=new JLabel("Nume:");
+        JTextField jTextFieldNume=new JTextField();
+        jTextFieldNume.setPreferredSize(dimension);
+        jPanelNume.add(jLabelNume);
+        jPanelNume.add(jTextFieldNume);
+
+        JPanel jPanelNumar=new JPanel();
+        jPanelNumar.setLayout(new BoxLayout(jPanelNumar,BoxLayout.Y_AXIS));
+        JLabel jLabelNumar=new JLabel("Numar:");
+        JTextField jTextFieldNumar=new JTextField();
+        jTextFieldNumar.setPreferredSize(dimension);
+        jPanelNumar.add(jLabelNumar);
+        jPanelNumar.add(jTextFieldNumar);
+
+        jPanelTextFields.add(jPanelNume);
+        jPanelTextFields.add(jPanelNumar);
+
+
+        JPanel jPanelButoane=new JPanel();
+        jPanelButoane.setLayout(new FlowLayout());
+        JButton jButtonAdaugare=new JButton("Adauga");
+        jButtonAdaugare.setSize(30,5);
+        jButtonAdaugare.addActionListener((e)->{
+            if(jTextFieldNumar.getText().equals("")||jTextFieldNume.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Trebuie sa introduci ceva nenul");
+            }
+            else{
+
+                try{
+                    int nr_scanere=Integer.parseInt(jTextFieldNumar.getText());
+                    if(nr_scanere<=0)throw new Exception();
+                    appService.adauga_firma_scanare(jTextFieldNume.getText(),nr_scanere);
+                }
+                catch(Exception ex){
+                    JOptionPane.showMessageDialog(null,"Trebuie sa introduci un nuamr valid");
+                    jTextFieldNumar.setText("");
+                    jTextFieldNume.setText("");
+
+                }
+                jFrame.removeAll();
+                jFrame.setVisible(false);
+                initializareFirmeScanare();
+            }
+
+        } );
+        JButton jButtonEditare=new JButton("Editeaza");
+        jButtonEditare.setSize(30,5);
+        jButtonEditare.addActionListener((e)->{
+            if(jTextFieldNumar.getText().equals("")||jTextFieldNume.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Trebuie sa introduci ceva nenul");
+            }
+            else{
+                if(jlist.getSelectedIndex()==-1){
+                    JOptionPane.showMessageDialog(null,"Trebuie sa selectezi celula pe care vrei sa o editezi");
+                }
+                else {
+                    try {
+                        int nr_scanere=Integer.parseInt(jTextFieldNumar.getText());
+                        if(nr_scanere<=0)throw new Exception();
+                        appService.schimba_firma_scanare(jlist.getSelectedIndex(), jTextFieldNume.getText(), nr_scanere);
+                    }
+                    catch(Exception ex){
+                        JOptionPane.showMessageDialog(null,"Trebuie sa introduci un numar valid");
+                    }
+
+                    jTextFieldNume.setText("");
+                    jTextFieldNumar.setText("");
+                    jFrame.removeAll();
+                    jFrame.setVisible(false);
+                    initializareFirmeScanare();
+                }
+            }
+        }  );
+
+        jPanelButoane.add(jButtonAdaugare);
+        jPanelButoane.add(jButtonEditare);
+
+        jPaneljos.add(jPanelTextFields);
+        jPaneljos.add(jPanelButoane);
+        pane.add(jPaneljos,BorderLayout.PAGE_END);
+
+
+        System.out.println("Gata");
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -8,3 +8,7 @@
 2019-05-13_20:56:17 S-a adaugat firma de productie Linux Events
 2019-05-13_20:56:38 S-a adaugat firma de scanare iaBilet
 2019-05-14_10:56:23 S-a adaugat locatia Germania Berlin
+2019-05-14_18:40:52 S-a adaugat clientul Barosan de barosa
+2019-05-14_18:54:13 S-a adaugat firma de scanare ssd 30
+2019-05-14_19:10:56 S-a adaugat firma de productie Lesus Production
+2019-05-14_19:13:20 S-a adaugat evenimentul Gratare cu Mici care se petrece pe 23-13-2020 avand firma de productie Lesus Production si avand drept firma de scanare Metalhead 1000

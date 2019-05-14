@@ -13,7 +13,7 @@ public class FirmaScanare extends Firma implements Serializable {
 
     @Override
     public String toString() {
-        return nume;
+        return nume+" "+numar_scanere;
     }
 
     public int getNumar_scanere() {

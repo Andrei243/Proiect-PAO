@@ -17,8 +17,11 @@ public class LocationService extends GenericService<Locatie> {
         return new Locatie(tara,oras);
     }
 
-    public void adauga_locatie(){
-        Locatie aux=citeste_locatie();
+    public void adauga_locatie(String tara,String oras){
+        Locatie aux=new Locatie(tara,oras);
+        comun_adaug(aux);
+    }
+    public void comun_adaug(Locatie aux){
         elemente.add(aux);
         Collections.sort(elemente);
         ArrayList<String> element=new ArrayList<>();
@@ -33,8 +36,13 @@ public class LocationService extends GenericService<Locatie> {
         stringBuilder.append("\"");
         element.add(stringBuilder.toString());
         adaugaElement("Locatii",element);
-
         Logger.getInstance().add("S-a adaugat locatia "+aux.toString()+"\n");
+    }
+
+    public void adauga_locatie(){
+        Locatie aux=citeste_locatie();
+       comun_adaug(aux);
+
 
     }
 
@@ -57,8 +65,7 @@ public class LocationService extends GenericService<Locatie> {
 
     }
 
-    public void stergereLocatie(){
-        Locatie locatie=ret_locatie();
+    private void stergere_comuna(Locatie locatie){
         StringBuilder stringBuilder=new StringBuilder();
         stringBuilder.append("tara = '");
         stringBuilder.append(locatie.getTara());
@@ -67,11 +74,51 @@ public class LocationService extends GenericService<Locatie> {
         stringBuilder.append("'");
         stergeElement("Locatii",stringBuilder.toString());
         elemente.remove(locatie);
+    }
+
+    public void stergereLocatie(){
+        Locatie locatie=ret_locatie();
+       stergere_comuna(locatie);
 
     }
 
+    public void stergereLocatie(int index){
+        Locatie locatie=elemente.get(index);
+        stergere_comuna(locatie);
+
+    }
+
+//    private Locatie ret_locatie(int x){
+//        return elemente.get(x);
+//    }
+
+    public void editeaza_locatie(int x,String tara,String oras){
+        Locatie fost=elemente.get(x);
+        elemente.remove(x);
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append(" Where tara='");
+        stringBuilder.append(fost.getTara());
+        stringBuilder.append("' and oras='");
+        stringBuilder.append(fost.getOras());
+        stringBuilder.append("'");
+        String conditie=stringBuilder.toString();
+
+        Locatie nou=new Locatie(tara,oras);
+        elemente.add(nou);
+        Collections.sort(elemente);
+        stringBuilder.setLength(0);
+        stringBuilder.append(" Set tara='");
+        stringBuilder.append(nou.getTara());
+        stringBuilder.append("' , oras='");
+        stringBuilder.append(nou.getOras());
+        stringBuilder.append("'");
+        String update=stringBuilder.toString();
+
+        String cerere=update+conditie;
+        schimbaElement("Locatii",cerere);
 
 
+    }
 
 
 

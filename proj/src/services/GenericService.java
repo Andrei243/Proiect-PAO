@@ -150,6 +150,14 @@ class AdaugatorInBD<T> implements Runnable{
 }
 
 abstract public class GenericService<T> {
+    public ArrayList<String> getStrings(){
+        ArrayList<String> stringuri=new ArrayList<>();
+        for(T element : elemente){
+            stringuri.add(element.toString());
+        }
+        return stringuri;
+
+    }
 
     protected ArrayList<T>elemente =new ArrayList<>();
     private ObjectOutputStream objectOutputStream;

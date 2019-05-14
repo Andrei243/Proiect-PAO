@@ -11,5 +11,10 @@ public class Client implements Serializable {
    public String getNume(){
        return nume;
    }
+   @Override
+    public String toString(){
+       return nume;
+   }
+
 
 }

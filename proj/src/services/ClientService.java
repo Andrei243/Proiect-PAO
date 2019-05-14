@@ -4,6 +4,7 @@ import models.Client;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.Callable;
 
 public class ClientService extends GenericService<Client>{
     Scanner scanner=new Scanner(System.in);
@@ -16,8 +17,7 @@ public class ClientService extends GenericService<Client>{
         return new Client(nume);
     }
 
-    public void adauga_client(){
-        Client client=citeste_client();
+    public void general_adaugare(Client client){
         Logger.getInstance().add("S-a adaugat clientul "+client.getNume()+"\n");
 
         ArrayList<String> element=new ArrayList<>();
@@ -29,7 +29,15 @@ public class ClientService extends GenericService<Client>{
         adaugaElement("Clienti",element);
         elemente.add(client);
 
+    }
 
+    public void adauga_client(){
+        Client client=citeste_client();
+        general_adaugare(client);
+    }
+    public void adauga_client(String nume){
+        Client client=new Client(nume);
+        general_adaugare(client);
     }
 
     public void afiseaza_clienti(){
@@ -49,15 +57,46 @@ public class ClientService extends GenericService<Client>{
         }while (true);
 
     }
-
-    public void stergeClient(){
-        Client client=ret_client();
+    private void stergere_comuna(Client client){
         StringBuilder stringBuilder=new StringBuilder();
         stringBuilder.append(" nume ='");
         stringBuilder.append(client.getNume());
         stringBuilder.append("'");
         stergeElement("Clienti",stringBuilder.toString());
         elemente.remove(client);
+    }
+
+    public void stergeClient(){
+        Client client=ret_client();
+        stergere_comuna(client);
+    }
+
+    public void stergeClient(int index){
+        Client client=elemente.get(index);
+        stergere_comuna(client);
+    }
+
+    public void editeaza_client(int x,String nume){
+        Client fost=elemente.get(x);
+        elemente.remove(fost);
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append(" Where nume='");
+        stringBuilder.append(fost.getNume());
+        stringBuilder.append("'");
+        String conditie=stringBuilder.toString();
+
+        Client nou=new Client(nume);
+        elemente.add(nou);
+        stringBuilder.setLength(0);
+        stringBuilder.append(" Set nume='");
+        stringBuilder.append(nou.getNume());
+        stringBuilder.append("'");
+        String update=stringBuilder.toString();
+
+        String cerere=update+conditie;
+        schimbaElement("Clienti",cerere);
+
+
 
 
     }

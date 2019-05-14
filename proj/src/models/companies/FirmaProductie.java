@@ -13,4 +13,5 @@ public class FirmaProductie extends Firma implements Serializable {
     public String toString() {
         return nume;
     }
+
 }

@@ -15,8 +15,7 @@ public class ProductionService extends GenericService<FirmaProductie> {
         return new FirmaProductie(nume);
     }
 
-    public void adauga_firma_productie(){
-        FirmaProductie firmaProductie=citeste_firma_productie();
+    private void adauga_comun(FirmaProductie firmaProductie){
         elemente.add(firmaProductie);
         ArrayList<String>element=new ArrayList<>();
         StringBuilder stringBuilder=new StringBuilder();
@@ -26,7 +25,15 @@ public class ProductionService extends GenericService<FirmaProductie> {
         element.add(stringBuilder.toString());
         adaugaElement("FirmeProductie",element);
         Logger.getInstance().add("S-a adaugat firma de productie "+firmaProductie.toString()+"\n");
+    }
 
+    public void adauga_firma_productie(){
+        FirmaProductie firmaProductie=citeste_firma_productie();
+       adauga_comun(firmaProductie);
+    }
+    public void adauga_firma_productie(String nume){
+        FirmaProductie firmaProductie=new FirmaProductie(nume);
+        adauga_comun(firmaProductie);
     }
 
     public void afiseaza_firme_productie(){
@@ -47,14 +54,43 @@ public class ProductionService extends GenericService<FirmaProductie> {
 
     }
 
-    public void stergeFirmaProductie(){
-        FirmaProductie firmaProductie=ret_firma_productie();
+    private void stergere_comuna(FirmaProductie firmaProductie){
         StringBuilder stringBuilder=new StringBuilder();
         stringBuilder.append(" nume = '");
         stringBuilder.append(firmaProductie.getNume());
         stringBuilder.append("'");
         stergeElement("FirmeProductie",stringBuilder.toString());
         elemente.remove(firmaProductie);
+    }
+
+    public void stergeFirmaProductie(){
+        FirmaProductie firmaProductie=ret_firma_productie();
+        stergere_comuna(firmaProductie);
+    }
+
+    public void stergeFirmaProductie(int index){
+        FirmaProductie firmaProductie=elemente.get(index);
+        stergere_comuna(firmaProductie);
+
+    }
+
+    public void schimba_firma_productie(int x,String nume){
+        FirmaProductie fost=elemente.get(x);
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append(" Where nume='");
+        stringBuilder.append(fost.getNume());
+        stringBuilder.append("'");
+        String conditie=stringBuilder.toString();
+
+        FirmaProductie nou=new FirmaProductie(nume);
+        stringBuilder.setLength(0);
+        stringBuilder.append(" Set nume='");
+        stringBuilder.append(nou.getNume());
+        stringBuilder.append("'");
+        String update=stringBuilder.toString();
+
+        String cerere=update + conditie;
+        schimbaElement("FirmeProductie",cerere);
 
     }
 
